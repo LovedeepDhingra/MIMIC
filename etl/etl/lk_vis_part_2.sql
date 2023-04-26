@@ -91,21 +91,21 @@ FROM
     daring-tracer-300615.mimiciv_full_cdm_april26.lk_meas_ab_mapped src
 WHERE
     src.hadm_id IS NULL
-UNION ALL
+--UNION ALL
 -- waveforms
-SELECT
-    src.subject_id                                  AS subject_id,
-    CAST(src.start_datetime AS DATE)                AS date_id,
-    src.start_datetime                              AS start_datetime,
-    -- 
-    src.unit_id                     AS unit_id,
-    src.load_table_id               AS load_table_id,
-    src.load_row_id                 AS load_row_id,
-    src.trace_id                    AS trace_id
-FROM
-    daring-tracer-300615.mimiciv_full_cdm_april26.lk_meas_waveform_mapped src
-WHERE
-    src.hadm_id IS NULL
+-- SELECT
+--     src.subject_id                                  AS subject_id,
+--     CAST(src.start_datetime AS DATE)                AS date_id,
+--     src.start_datetime                              AS start_datetime,
+--     -- 
+--     src.unit_id                     AS unit_id,
+--     src.load_table_id               AS load_table_id,
+--     src.load_row_id                 AS load_row_id,
+--     src.trace_id                    AS trace_id
+-- FROM
+--     daring-tracer-300615.mimiciv_full_cdm_april26.lk_meas_waveform_mapped src
+-- WHERE
+--     src.hadm_id IS NULL
 ;
 
 -- -------------------------------------------------------------------
@@ -144,31 +144,31 @@ GROUP BY
 --      lk_meas_waveform_mapped
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.lk_visit_detail_waveform_dist AS
-SELECT
-    src.subject_id                                  AS subject_id,
-    src.hadm_id                                     AS hadm_id,
-    CAST(MIN(src.start_datetime) AS DATE)           AS date_id,
-    MIN(src.start_datetime)                         AS start_datetime,
-    MAX(src.start_datetime)                         AS end_datetime,
-    'AMBULATORY OBSERVATION'                        AS current_location, -- outpatient visit
-    src.reference_id                                AS reference_id,
-    -- 
-    'waveforms'                     AS unit_id,
-    'lk_meas_waveform_mapped'       AS load_table_id,
-    0                               AS load_row_id,
-    TO_JSON_STRING(STRUCT(
-        src.subject_id AS subject_id,
-        src.hadm_id AS hadm_id,
-        src.reference_id AS reference_id
-    ))                                  AS trace_id
-FROM
-    daring-tracer-300615.mimiciv_full_cdm_april26.lk_meas_waveform_mapped src
-GROUP BY
-    src.subject_id,
-    src.hadm_id,
-    src.reference_id
-;
+-- CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.lk_visit_detail_waveform_dist AS
+-- SELECT
+--     src.subject_id                                  AS subject_id,
+--     src.hadm_id                                     AS hadm_id,
+--     CAST(MIN(src.start_datetime) AS DATE)           AS date_id,
+--     MIN(src.start_datetime)                         AS start_datetime,
+--     MAX(src.start_datetime)                         AS end_datetime,
+--     'AMBULATORY OBSERVATION'                        AS current_location, -- outpatient visit
+--     src.reference_id                                AS reference_id,
+--     -- 
+--     'waveforms'                     AS unit_id,
+--     'lk_meas_waveform_mapped'       AS load_table_id,
+--     0                               AS load_row_id,
+--     TO_JSON_STRING(STRUCT(
+--         src.subject_id AS subject_id,
+--         src.hadm_id AS hadm_id,
+--         src.reference_id AS reference_id
+--     ))                                  AS trace_id
+-- FROM
+--     daring-tracer-300615.mimiciv_full_cdm_april26.lk_meas_waveform_mapped src
+-- GROUP BY
+--     src.subject_id,
+--     src.hadm_id,
+--     src.reference_id
+-- ;
 
 -- -------------------------------------------------------------------
 -- lk_visit_clean
@@ -319,24 +319,24 @@ WHERE
 -- Rule 4.
 -- waveforms
 -- -------------------------------------------------------------------
-INSERT INTO daring-tracer-300615.mimiciv_full_cdm_april26.lk_visit_detail_clean
-SELECT
-    FARM_FINGERPRINT(GENERATE_UUID())               AS visit_detail_id,
-    src.subject_id                                  AS subject_id,
-    src.hadm_id                                     AS hadm_id,
-    src.date_id                                     AS date_id,
-    src.start_datetime                              AS start_datetime,
-    src.end_datetime                                AS end_datetime,  -- if null, populate with next start_datetime
-    src.reference_id                                AS source_value,
-    src.current_location                            AS current_location, -- find prev and next for adm and disch location
-    -- 
-    src.unit_id                     AS unit_id,
-    src.load_table_id               AS load_table_id,
-    src.load_row_id                 AS load_row_id,
-    src.trace_id                    AS trace_id
-FROM 
-    daring-tracer-300615.mimiciv_full_cdm_april26.lk_visit_detail_waveform_dist src
-;
+-- INSERT INTO daring-tracer-300615.mimiciv_full_cdm_april26.lk_visit_detail_clean
+-- SELECT
+--     FARM_FINGERPRINT(GENERATE_UUID())               AS visit_detail_id,
+--     src.subject_id                                  AS subject_id,
+--     src.hadm_id                                     AS hadm_id,
+--     src.date_id                                     AS date_id,
+--     src.start_datetime                              AS start_datetime,
+--     src.end_datetime                                AS end_datetime,  -- if null, populate with next start_datetime
+--     src.reference_id                                AS source_value,
+--     src.current_location                            AS current_location, -- find prev and next for adm and disch location
+--     -- 
+--     src.unit_id                     AS unit_id,
+--     src.load_table_id               AS load_table_id,
+--     src.load_row_id                 AS load_row_id,
+--     src.trace_id                    AS trace_id
+-- FROM 
+--     daring-tracer-300615.mimiciv_full_cdm_april26.lk_visit_detail_waveform_dist src
+-- ;
 
 -- -------------------------------------------------------------------
 -- lk_visit_detail_prev_next

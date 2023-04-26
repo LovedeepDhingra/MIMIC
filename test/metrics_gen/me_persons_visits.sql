@@ -20,8 +20,8 @@
 -- create database mimic_ metrics;
 -- ----------------------------------------------------------------------------------------------
 
-drop table if exists `@metrics_project`.@metrics_dataset.me_persons_visits;
-create table `@metrics_project`.@metrics_dataset.me_persons_visits
+drop table if exists daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits;
+create table daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits
 (
         category string,
         name string,
@@ -31,25 +31,25 @@ create table `@metrics_project`.@metrics_dataset.me_persons_visits
 -- ----------------------------------------------------------------------------------------------
 -- Number of  persons
 -- ----------------------------------------------------------------------------------------------
-insert into `@metrics_project`.@metrics_dataset.me_persons_visits
+insert into daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits
 select 'Number of persons' as category, 'Total' as name,  count(*) as count
-from `@etl_project`.@etl_dataset.cdm_person
+from daring-tracer-300615.mimiciv_full_cdm_april26.cdm_person
 ;
 
-insert into `@metrics_project`.@metrics_dataset.me_persons_visits
+insert into daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits
 select 'Number of persons by Race' as category, vc.concept_name as name,  count(*) as count
-from `@etl_project`.@etl_dataset.cdm_person per
-left join `@etl_project`.@etl_dataset.voc_concept vc
+from daring-tracer-300615.mimiciv_full_cdm_april26.cdm_person per
+left join daring-tracer-300615.mimiciv_full_cdm_april26.voc_concept vc
     on per.race_concept_id = vc.concept_id
 group by vc.concept_name
 order by vc.concept_name
 ;
 
 
-insert into `@metrics_project`.@metrics_dataset.me_persons_visits
+insert into daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits
 select 'Number of persons by Ethnicity' as category, vc.concept_name as name,  count(*) as count
-from `@etl_project`.@etl_dataset.cdm_person per
-left join `@etl_project`.@etl_dataset.voc_concept vc
+from daring-tracer-300615.mimiciv_full_cdm_april26.cdm_person per
+left join daring-tracer-300615.mimiciv_full_cdm_april26.voc_concept vc
     on per.ethnicity_concept_id = vc.concept_id
 group by vc.concept_name
 order by vc.concept_name
@@ -61,19 +61,19 @@ order by vc.concept_name
 -- Stratified by visit_concept_id
 -- ----------------------------------------------------------------------------------------------
 
-insert into `@metrics_project`.@metrics_dataset.me_persons_visits
+insert into daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits
 select 'Number of visits' as category, 'Total' as name,  count(*) as count
-from `@etl_project`.@etl_dataset.cdm_visit_occurrence
+from daring-tracer-300615.mimiciv_full_cdm_april26.cdm_visit_occurrence
 ;
 
 
-insert into `@metrics_project`.@metrics_dataset.me_persons_visits
+insert into daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits
 select 'Number of visits by visit_concept_id' as category, vc.concept_name as name,  count(*) as count
-from `@etl_project`.@etl_dataset.cdm_visit_occurrence vis
-left join `@etl_project`.@etl_dataset.voc_concept vc
+from daring-tracer-300615.mimiciv_full_cdm_april26.cdm_visit_occurrence vis
+left join daring-tracer-300615.mimiciv_full_cdm_april26.voc_concept vc
     on vis.visit_concept_id = vc.concept_id
 group by vc.concept_name
 order by vc.concept_name
 ;
 
-select * from `@metrics_project`.@metrics_dataset.me_persons_visits order by category, name;
+select * from daring-tracer-300615.mimiciv_full_metrics_april26.me_persons_visits order by category, name;
