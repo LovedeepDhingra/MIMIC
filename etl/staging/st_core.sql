@@ -20,7 +20,7 @@
 -- src_patients
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.src_patients AS
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.src_patients AS
 SELECT 
     subject_id                          AS subject_id,
     anchor_year                         AS anchor_year,
@@ -34,14 +34,14 @@ SELECT
         subject_id AS subject_id
     ))                                  AS trace_id
 FROM
-    `@source_project`.@core_dataset.patients
+    daring-tracer-300615.mimic4_data.patients
 ;
 
 -- -------------------------------------------------------------------
 -- src_admissions
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.src_admissions AS
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.src_admissions AS
 SELECT
     hadm_id                             AS hadm_id, -- PK
     subject_id                          AS subject_id,
@@ -66,14 +66,14 @@ SELECT
         hadm_id AS hadm_id
     ))                                  AS trace_id
 FROM
-    `@source_project`.@core_dataset.admissions
+    daring-tracer-300615.mimic4_data.admissions
 ;
 
 -- -------------------------------------------------------------------
 -- src_transfers
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.src_transfers AS
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.src_transfers AS
 SELECT
     transfer_id                         AS transfer_id,
     hadm_id                             AS hadm_id,
@@ -91,6 +91,6 @@ SELECT
         transfer_id AS transfer_id
     ))                                  AS trace_id
 FROM
-    `@source_project`.@core_dataset.transfers
+    daring-tracer-300615.mimic4_data.transfers
 ;
 

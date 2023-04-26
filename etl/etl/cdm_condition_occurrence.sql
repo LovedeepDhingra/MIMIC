@@ -29,7 +29,7 @@
 -- -------------------------------------------------------------------
 
 --HINT DISTRIBUTE_ON_KEY(person_id)
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.cdm_condition_occurrence
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.cdm_condition_occurrence
 (
     condition_occurrence_id       INT64     not null ,
     person_id                     INT64     not null ,
@@ -60,7 +60,7 @@ CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.cdm_condition_occurrence
 -- diagnoses
 -- -------------------------------------------------------------------
 
-INSERT INTO `@etl_project`.@etl_dataset.cdm_condition_occurrence
+INSERT INTO daring-tracer-300615.mimiciv_full_cdm_april26.cdm_condition_occurrence
 SELECT
     FARM_FINGERPRINT(GENERATE_UUID())       AS condition_occurrence_id,
     per.person_id                           AS person_id,
@@ -84,12 +84,12 @@ SELECT
     src.load_row_id                 AS load_row_id,
     src.trace_id                    AS trace_id
 FROM
-    `@etl_project`.@etl_dataset.lk_diagnoses_icd_mapped src
+    daring-tracer-300615.mimiciv_full_cdm_april26.lk_diagnoses_icd_mapped src
 INNER JOIN
-    `@etl_project`.@etl_dataset.cdm_person per
+    daring-tracer-300615.mimiciv_full_cdm_april26.cdm_person per
         ON CAST(src.subject_id AS STRING) = per.person_source_value
 INNER JOIN
-    `@etl_project`.@etl_dataset.cdm_visit_occurrence vis
+    daring-tracer-300615.mimiciv_full_cdm_april26.cdm_visit_occurrence vis
         ON  vis.visit_source_value = 
             CONCAT(CAST(src.subject_id AS STRING), '|', CAST(src.hadm_id AS STRING))
 WHERE
@@ -101,7 +101,7 @@ WHERE
 -- Chartevents.value
 -- -------------------------------------------------------------------
 
-INSERT INTO `@etl_project`.@etl_dataset.cdm_condition_occurrence
+INSERT INTO daring-tracer-300615.mimiciv_full_cdm_april26.cdm_condition_occurrence
 SELECT
     FARM_FINGERPRINT(GENERATE_UUID())       AS condition_occurrence_id,
     per.person_id                           AS person_id,
@@ -125,12 +125,12 @@ SELECT
     src.load_row_id                 AS load_row_id,
     src.trace_id                    AS trace_id
 FROM
-    `@etl_project`.@etl_dataset.lk_chartevents_condition_mapped src
+    daring-tracer-300615.mimiciv_full_cdm_april26.lk_chartevents_condition_mapped src
 INNER JOIN
-    `@etl_project`.@etl_dataset.cdm_person per
+    daring-tracer-300615.mimiciv_full_cdm_april26.cdm_person per
         ON CAST(src.subject_id AS STRING) = per.person_source_value
 INNER JOIN
-    `@etl_project`.@etl_dataset.cdm_visit_occurrence vis
+    daring-tracer-300615.mimiciv_full_cdm_april26.cdm_visit_occurrence vis
         ON  vis.visit_source_value = 
             CONCAT(CAST(src.subject_id AS STRING), '|', CAST(src.hadm_id AS STRING))
 WHERE
@@ -144,7 +144,7 @@ WHERE
 -- Chartevents
 -- -------------------------------------------------------------------
 
-INSERT INTO `@etl_project`.@etl_dataset.cdm_condition_occurrence
+INSERT INTO daring-tracer-300615.mimiciv_full_cdm_april26.cdm_condition_occurrence
 SELECT
     FARM_FINGERPRINT(GENERATE_UUID())       AS condition_occurrence_id,
     per.person_id                           AS person_id,
@@ -168,12 +168,12 @@ SELECT
     src.load_row_id                 AS load_row_id,
     src.trace_id                    AS trace_id
 FROM
-    `@etl_project`.@etl_dataset.lk_chartevents_mapped src
+    daring-tracer-300615.mimiciv_full_cdm_april26.lk_chartevents_mapped src
 INNER JOIN
-    `@etl_project`.@etl_dataset.cdm_person per
+    daring-tracer-300615.mimiciv_full_cdm_april26.cdm_person per
         ON CAST(src.subject_id AS STRING) = per.person_source_value
 INNER JOIN
-    `@etl_project`.@etl_dataset.cdm_visit_occurrence vis
+    daring-tracer-300615.mimiciv_full_cdm_april26.cdm_visit_occurrence vis
         ON  vis.visit_source_value = 
             CONCAT(CAST(src.subject_id AS STRING), '|', CAST(src.hadm_id AS STRING))
 WHERE

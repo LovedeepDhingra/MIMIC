@@ -27,7 +27,7 @@
 -- -------------------------------------------------------------------
 
 --HINT DISTRIBUTE_ON_KEY(person_id)
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.cdm_specimen
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.cdm_specimen
 (
     specimen_id                 INT64     not null ,
     person_id                   INT64     not null ,
@@ -53,7 +53,7 @@ CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.cdm_specimen
 ;
 
 
-INSERT INTO `@etl_project`.@etl_dataset.cdm_specimen
+INSERT INTO daring-tracer-300615.mimiciv_full_cdm_april26.cdm_specimen
 SELECT
     src.specimen_id                             AS specimen_id,
     per.person_id                               AS person_id,
@@ -76,9 +76,9 @@ SELECT
     src.load_row_id                 AS load_row_id,
     src.trace_id                    AS trace_id
 FROM
-    `@etl_project`.@etl_dataset.lk_specimen_mapped src
+    daring-tracer-300615.mimiciv_full_cdm_april26.lk_specimen_mapped src
 INNER JOIN
-    `@etl_project`.@etl_dataset.cdm_person per
+    daring-tracer-300615.mimiciv_full_cdm_april26.cdm_person per
         ON CAST(src.subject_id AS STRING) = per.person_source_value
 WHERE
     src.target_domain_id = 'Specimen'

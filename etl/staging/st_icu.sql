@@ -18,7 +18,7 @@
 -- src_procedureevents
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.src_procedureevents AS
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.src_procedureevents AS
 SELECT
     hadm_id                             AS hadm_id,
     subject_id                          AS subject_id,
@@ -36,14 +36,14 @@ SELECT
         starttime AS starttime
     ))                                  AS trace_id
 FROM
-    `@source_project`.@icu_dataset.procedureevents
+    daring-tracer-300615.mimiciv_icu.procedureevents
 ;
 
 -- -------------------------------------------------------------------
 -- src_d_items
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.src_d_items AS
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.src_d_items AS
 SELECT
     itemid                              AS itemid,
     label                               AS label,
@@ -62,14 +62,14 @@ SELECT
         linksto AS linksto
     ))                                  AS trace_id
 FROM
-    `@source_project`.@icu_dataset.d_items
+    daring-tracer-300615.mimiciv_icu.d_items
 ;
 
 -- -------------------------------------------------------------------
 -- src_datetimeevents
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.src_datetimeevents AS
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.src_datetimeevents AS
 SELECT
     subject_id  AS subject_id,
     hadm_id     AS hadm_id,
@@ -87,11 +87,11 @@ SELECT
         charttime AS charttime
     ))                                  AS trace_id
 FROM
-    `@source_project`.@icu_dataset.datetimeevents
+    daring-tracer-300615.mimiciv_icu.datetimeevents
 ;
 
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.src_chartevents AS
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.src_chartevents AS
 SELECT
     subject_id  AS subject_id,
     hadm_id     AS hadm_id,
@@ -111,5 +111,5 @@ SELECT
         charttime AS charttime
     ))                                  AS trace_id
 FROM
-    `@source_project`.@icu_dataset.chartevents
+    daring-tracer-300615.mimiciv_icu.chartevents
 ;

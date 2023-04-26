@@ -21,7 +21,7 @@
 -- cdm_location
 -- -------------------------------------------------------------------
 
-CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.cdm_location
+CREATE OR REPLACE TABLE daring-tracer-300615.mimiciv_full_cdm_april26.cdm_location
 (
     location_id           INT64     not null ,
     address_1             STRING             ,
@@ -39,7 +39,7 @@ CREATE OR REPLACE TABLE `@etl_project`.@etl_dataset.cdm_location
 )
 ;
 
-INSERT INTO `@etl_project`.@etl_dataset.cdm_location
+INSERT INTO daring-tracer-300615.mimiciv_full_cdm_april26.cdm_location
 SELECT
     1                           AS location_id,
     CAST(NULL AS STRING)        AS address_1,

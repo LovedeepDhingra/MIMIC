@@ -125,26 +125,26 @@ def main():
     # We start from from the point when Athena vocabularies are downloaded and CPT vocabulary is updated
 
     # 2. Copy files to GCP bucket
-    # if return_code == 0 and params['step'] in [11, 10, 0]:
-    #     run_command = gsutil_rm_csv.format(target_path=config['gs_athena_csv_path'])
-    #     print(run_command)
-    #     return_code = os.system(run_command)
-    #     print("return_code", return_code)
+    if return_code == 0 and params['step'] in [11, 10, 0]:
+        run_command = gsutil_rm_csv.format(target_path=config['gs_athena_csv_path'])
+        print(run_command)
+        return_code = os.system(run_command)
+        print("return_code", return_code)
 
-    #     run_command = gsutil_cp_csv.format(
-    #         source_path=config['local_athena_csv_path'], target_path=config['gs_athena_csv_path'])
-    #     print(run_command)
-    #     return_code = os.system(run_command)
-    #     print("return_code", return_code)
+        run_command = gsutil_cp_csv.format(
+            source_path=config['local_athena_csv_path'], target_path=config['gs_athena_csv_path'])
+        print(run_command)
+        return_code = os.system(run_command)
+        print("return_code", return_code)
 
     # 3. Load files to intermediate BQ tables
-    # if return_code == 0 and params['step'] in [12, 10, 0]:
-    #     print('###############************ STEP 3 IS STARTED. ###############************ ')
-    #     run_command = run_command_load.format(step_name="athena", config_file=params['config_file'])
-    #     print(run_command)
-    #     return_code = os.system(run_command)
-    #     print("return_code", return_code)
-    #     print('###############************ STEP 3 IS DONE. ###############************ ')
+    if return_code == 0 and params['step'] in [12, 10, 0]:
+        print('###############************ STEP 3 IS STARTED. ###############************ ')
+        run_command = run_command_load.format(step_name="athena", config_file=params['config_file'])
+        print(run_command)
+        return_code = os.system(run_command)
+        print("return_code", return_code)
+        print('###############************ STEP 3 IS DONE. ###############************ ')
 
     # 4. Populate target vocabulary tables from intermediate tables
     if return_code == 0 and params['step'] in [13, 10, 0]:
@@ -163,35 +163,35 @@ def main():
     # # It is a manual step
 
     # # 6. Copy custom mapping files to GCP bucket
-    # if return_code == 0 and params['step'] in [21, 20, 0]:
-    #     run_command = gsutil_rm_csv.format(target_path=config['gs_mapping_csv_path'])
-    #     print(run_command)
-    #     run_command = gsutil_cp_csv.format(
-    #         source_path=config['local_mapping_csv_path'], target_path=config['gs_mapping_csv_path'])
-    #     print(run_command)
-    #     return_code = os.system(run_command)
-    #     print("return_code", return_code)
+    if return_code == 0 and params['step'] in [21, 20, 0]:
+        run_command = gsutil_rm_csv.format(target_path=config['gs_mapping_csv_path'])
+        print(run_command)
+        run_command = gsutil_cp_csv.format(
+            source_path=config['local_mapping_csv_path'], target_path=config['gs_mapping_csv_path'])
+        print(run_command)
+        return_code = os.system(run_command)
+        print("return_code", return_code)
 
-    # # 7. Load files to the intermediate BQ table (tmp_custom_mapping)
-    # if return_code == 0 and params['step'] in [22, 20, 0]:
-    #     run_command = run_command_load.format(step_name="mapping", config_file=params['config_file'])
-    #     print(run_command)
-    #     return_code = os.system(run_command)
-    #     print("return_code", return_code)
+    # 7. Load files to the intermediate BQ table (tmp_custom_mapping)
+    if return_code == 0 and params['step'] in [22, 20, 0]:
+        run_command = run_command_load.format(step_name="mapping", config_file=params['config_file'])
+        print(run_command)
+        return_code = os.system(run_command)
+        print("return_code", return_code)
 
-    #     run_command = run_command_bq_script.format( \
-    #         config_file=params['config_file'], script_file="check_custom_loaded.sql")
-    #     print(run_command)
-    #     return_code = os.system(run_command)
-    #     print("return_code", return_code)
+        run_command = run_command_bq_script.format( \
+            config_file=params['config_file'], script_file="check_custom_loaded.sql")
+        print(run_command)
+        return_code = os.system(run_command)
+        print("return_code", return_code)
 
-    # # 8. Add custom concepts to vocabulary tables from the intermediate table
-    # if return_code == 0 and params['step'] in [23, 20, 0]:
-    #     run_command = run_command_bq_script.format( \
-    #         config_file=params['config_file'], script_file="custom_vocabularies.sql")
-    #     print(run_command)
-    #     return_code = os.system(run_command)
-    #     print("return_code", return_code)
+    # 8. Add custom concepts to vocabulary tables from the intermediate table
+    if return_code == 0 and params['step'] in [23, 20, 0]:
+        run_command = run_command_bq_script.format( \
+            config_file=params['config_file'], script_file="custom_vocabularies.sql")
+        print(run_command)
+        return_code = os.system(run_command)
+        print("return_code", return_code)
 
     #####Verify the result#####
 
