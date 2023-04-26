@@ -25,8 +25,8 @@ config_default = {
     "type": "sql or py",
     "variables": 
     {
-        "@etl_project": "target project name",
-        "@etl_dataset": "target dataset name"
+        "@etl_project": "daring-tracer-300615",
+        "@etl_dataset": "target_mimiciii_demo"
     },
     "scripts": 
     [

@@ -3,24 +3,24 @@
 
     "variables": 
     {
-        "@source_project":   "physionet-data",
-        "@core_dataset":     "mimic_demo_core",
-        "@hosp_dataset":     "mimic_demo_hosp",
-        "@icu_dataset":      "mimic_demo_icu",
+        "@source_project":   "daring-tracer-300615",
+        "@core_dataset":     "mimiciii_demo",
+        "@hosp_dataset":     "mimiciii_demo",
+        "@icu_dataset":      "mimiciii_demo",
 
-        "@voc_project": "odysseus-mimic-dev",
-        "@voc_dataset": "vocabulary_2020_09_11",
+        "@voc_project": "daring-tracer-300615",
+        "@voc_dataset": "target_mimiciii_demo",
 
         "@wf_project": "odysseus-mimic-dev",
         "@wf_dataset": "waveform_source_poc",
 
-        "@etl_project": "odysseus-mimic-dev",
-        "@etl_dataset": "mimiciv_demo_cdm_2021_04_19",
+        "@etl_project": "daring-tracer-300615",
+        "@etl_dataset": "etl_mimiciii_demo",
 
-        "@metrics_project": "odysseus-mimic-dev",
-        "@metrics_dataset": "mimiciv_demo_metrics_2021_04_19",
+        "@metrics_project": "daring-tracer-300615",
+        "@metrics_dataset": "metrics_mimiciii_demo",
 
-        "@atlas_project": "odysseus-mimic-dev",
+        "@atlas_project": "daring-tracer-300615",
         "@atlas_dataset": "mimiciv_demo_current_cdm_531",
 
         "@waveforms_csv_path":  "gs://mimic_iv_to_omop/waveforms/source_data/csv"
